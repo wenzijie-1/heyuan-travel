@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>万绿河源 | 广东·河源旅行官网</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    :root {
+      --primary: #2d5a36;
+      --primary-light: #4a7c59;
+      --primary-lighter: #e8f0e9;
+      --bg: #f5f2ed;
+      --text: #333333;
+      --text-secondary: #666666;
+      --text-muted: #999999;
+      --accent-brown: #8b6e4a;
+      --accent-purple: #7a4a82;
+      --accent-blue: #4a7c99;
+      --accent-orange: #d47d49;
+      --card-bg: #ffffff;
+      --shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+      --radius: 12px;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    nav {
+      background-color: var(--bg);
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background-color: var(--primary);
+      mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg>') no-repeat center;
+      -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg>') no-repeat center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 16px;
+      transition: color 0.2s;
+      cursor: pointer;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-links a.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(to bottom, rgba(232, 240, 233, 0.6), var(--bg));
+      position: relative;
+    }
+
+    .hero-title { font-size: 72px; font-weight: 700; color: var(--primary); }
+    .hero-title-outline { color: transparent; -webkit-text-stroke: 2px var(--primary); }
+    .btn {
+      display: inline-block; padding: 14px 36px; background-color: var(--primary); color: white;
+      border-radius: 50px; font-size: 18px; cursor: pointer; border: none; transition: 0.2s;
+    }
+    .btn:hover { background-color: var(--primary-light); transform: translateY(-2px); }
+
+    .page-header { text-align: center; padding: 60px 20px 40px; background: linear-gradient(to bottom, rgba(232,240,233,0.4), var(--bg));}
+    .page-title { font-size: 42px; font-weight: 700; color: var(--text);}
+    .page-title span { color: var(--primary);}
+
+    .tabs {
+      display: flex; justify-content: center; gap: 15px; padding: 20px; background: white; flex-wrap: wrap;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .tab {
+      padding: 8px 20px; border-radius: 50px; background: var(--bg); color: var(--text-secondary);
+      cursor: pointer; transition: 0.2s; font-size: 15px;
+    }
+    .tab.active { background-color: var(--primary); color: white; }
+    .tab:hover:not(.active) { background-color: var(--primary-lighter); }
+
+    .card-grid {
+      max-width: 1400px; margin: 0 auto; padding: 50px 20px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px,1fr)); gap: 28px;
+    }
+    .card {
+      background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow);
+      overflow: hidden; transition: 0.2s; cursor: pointer;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 12px 28px rgba(0,0,0,0.1); }
+    .card-image { height: 180px; background: var(--primary-lighter); display: flex; align-items: center; justify-content: center; font-size: 56px; }
+    .card-content { padding: 20px; }
+    .card-type { font-size: 13px; color: var(--accent-orange); margin-bottom: 6px; }
+    .card-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; color: var(--primary);}
+    .card-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.5; }
+    .card-meta { font-size: 13px; color: var(--text-muted); display: flex; justify-content: space-between; }
+    .card-tag { display: inline-block; padding: 3px 10px; background: var(--primary-lighter); color: var(--primary); border-radius: 4px; font-size: 12px; margin-right: 6px; margin-top: 8px;}
+
+    .timeline { max-width: 1000px; margin: 0 auto; padding: 40px 20px; position: relative; }
+    .timeline-item { background: white; border-radius: var(--radius); padding: 24px; margin-bottom: 30px; box-shadow: var(--shadow); border-left: 5px solid var(--primary);}
+    .timeline-period { color: var(--accent-brown); font-weight: 500; margin-bottom: 8px; }
+    .timeline-title { font-size: 22px; font-weight: 600; color: var(--primary); margin-bottom: 12px; }
+
+    .guide-section { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+    .guide-content { display: none; }
+    .guide-content.active { display: block; }
+    .guide-grid, .hotel-grid, .service-grid { display: grid; gap: 24px; margin-top: 20px; }
+    .guide-grid { grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); }
+    .hotel-grid { grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); }
+    .service-grid { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+    .guide-card, .hotel-card, .service-card { background: white; border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
+    .hotel-card-header { height: 110px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 40px; position: relative; border-radius: 12px 12px 0 0; }
+    .hotel-badge { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px; font-size: 12px; color: white; }
+
+    .planner-container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+    .planner-form { background: white; border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow); }
+    .form-group { margin-bottom: 30px; }
+    .form-label { font-weight: 600; margin-bottom: 16px; display: flex; gap: 8px; font-size: 18px; }
+    .form-options { display: flex; flex-wrap: wrap; gap: 12px; }
+    .form-option { padding: 8px 20px; border: 1px solid #ddd; border-radius: 40px; background: #f9f9f9; cursor: pointer; transition: 0.2s; font-size: 14px; }
+    .form-option.selected { background: var(--primary-lighter); border-color: var(--primary); color: var(--primary); }
+    .form-submit { width: 100%; padding: 14px; background: #ccc; border: none; border-radius: 40px; font-size: 18px; font-weight: 500; cursor: not-allowed; transition: 0.2s; margin-top: 10px; }
+    .form-submit.active { background: var(--primary); color: white; cursor: pointer; }
+    .result-area { margin-top: 30px; background: var(--primary-lighter); border-radius: 20px; padding: 20px; display: none; }
+    .result-area.show { display: block; }
+
+    .weather-container { max-width: 700px; margin: 0 auto; padding: 40px 20px; }
+    .weather-card { background: white; border-radius: 24px; padding: 32px; box-shadow: var(--shadow); }
+    .weather-main { display: flex; align-items: center; gap: 24px; margin: 20px 0; }
+    .weather-temp { font-size: 56px; font-weight: 700; color: var(--primary); }
+    .weather-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 20px 0; }
+    .advice-item, .recommend-item { background: #f8f9fa; padding: 12px; border-radius: 12px; margin-bottom: 8px; }
+
+    @media (max-width: 760px) {
+      .hero-title { font-size: 44px; }
+      .nav-links { gap: 12px; justify-content: center; margin-top: 10px; }
+      .nav-container { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-container">
+    <div class="logo"><div class="logo-icon"></div><span>万绿河源</span></div>
+    <div class="nav-links">
+      <a class="nav-link active" data-page="home">首页</a><a class="nav-link" data-page="scenery">山水景点</a>
+      <a class="nav-link" data-page="food">客家美食</a><a class="nav-link" data-page="heritage">非遗传承</a>
+      <a class="nav-link" data-page="history">人文历史</a><a class="nav-link" data-page="guide">旅行指南</a>
+      <a class="nav-link" data-page="planner">路线规划</a><a class="nav-link" data-page="weather">天气参考</a>
+    </div>
+  </div>
+</nav>
+
+<!-- 首页 -->
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="hero-location" style="color:var(--primary);letter-spacing:4px;">广 东 · 河 源</div>
+    <h1 class="hero-title">万绿有湖<br><span class="hero-title-outline">客家有韵</span></h1>
+    <div class="hero-subtitle" style="margin:20px 0;color:#8b6e4a;">在这里，时间慢下来，看见湖的呼吸，尝到故乡的味道</div>
+    <button class="btn" onclick="switchPage('scenery')">探索万绿</button>
+  </div>
+</div>
+
+<!-- 山水景点 (结构保留，添加动态筛选js已完善) -->
+<div id="scenery" class="page"><div class="page-header"><h2 class="page-title">发现<span>河源</span>之美</h2><p class="page-desc">山川秀丽，人文深厚</p></div>
+<div class="tabs" data-page="scenery"><div class="tab active" data-tab="all">全部</div><div class="tab" data-tab="nature">🌿 自然生态</div><div class="tab" data-tab="water">💧 水域风光</div><div class="tab" data-tab="geology">🪨 地质奇观</div><div class="tab" data-tab="culture">🏛️ 人文古迹</div><div class="tab" data-tab="health">♨️ 康养休闲</div></div>
+<div class="card-grid" data-page="scenery"><div class="card" data-category="water"><div class="card-image">🌊</div><div class="card-content"><div class="card-type">水域风光</div><h3 class="card-title">万绿湖风景区</h3><p class="card-desc">华南第一大人工湖，360多个岛屿，被誉为"珠三角后花园"</p><div class="card-meta"><span>📍 东源县新港镇</span><span class="card-rating">4.9 ★</span></div><div><span class="card-tag">四季皆宜</span><span class="card-tag">国家4A级景区</span></div></div></div>
+<div class="card" data-category="nature"><div class="card-image">🌲</div><div class="card-content"><div class="card-type">自然生态</div><h3 class="card-title">桂山森林公园</h3><p class="card-desc">河源最高峰，原始森林覆盖率达98%，天然氧吧</p><div class="card-meta"><span>📍 东源县新港镇</span><span class="card-rating">4.7 ★</span></div><div><span class="card-tag">夏季避暑</span><span class="card-tag">漂流胜地</span></div></div></div>
+<div class="card" data-category="geology"><div class="card-image">⛰️</div><div class="card-content"><div class="card-type">地质奇观</div><h3 class="card-title">龙川霍山</h3><p class="card-desc">广东七大名山之一，丹霞地貌奇观</p><div class="card-meta"><span>📍 龙川县田心镇</span><span class="card-rating">4.6 ★</span></div><div><span class="card-tag">徒步登山</span></div></div></div>
+<div class="card" data-category="culture"><div class="card-image">🏡</div><div class="card-content"><div class="card-type">人文古迹</div><h3 class="card-title">苏家围客家乡村</h3><p class="card-desc">苏东坡后裔聚居地，保存完好的明清客家围屋</p><div class="card-meta"><span>📍 东源县义合镇</span><span class="card-rating">4.5 ★</span></div><div><span class="card-tag">客家文化</span></div></div></div>
+<div class="card" data-category="health"><div class="card-image">🏰</div><div class="card-content"><div class="card-type">康养休闲</div><h3 class="card-title">巴伐利亚庄园</h3><p class="card-desc">融合德国风情与客家文化的度假庄园，温泉乐园</p><div class="card-meta"><span>📍 源城区高埔岗</span><span class="card-rating">4.8 ★</span></div><div><span class="card-tag">冬季温泉</span></div></div></div>
+<div class="card" data-category="geology"><div class="card-image">🦕</div><div class="card-content"><div class="card-type">地质奇观</div><h3 class="card-title">河源恐龙博物馆</h3><p class="card-desc">馆藏恐龙蛋化石数量世界第一，"中华恐龙之乡"</p><div class="card-meta"><span>📍 源城区沿江路</span><span class="card-rating">4.7 ★</span></div><div><span class="card-tag">科普教育</span></div></div></div></div></div>
+
+<!-- 客家美食 -->
+<div id="food" class="page"><div class="page-header"><h2 class="page-title">舌尖上的<span>客家</span>味道</h2><p class="page-desc">山野滋味，千年传承</p></div><div class="tabs" data-page="food"><div class="tab active" data-tab="all">全部</div><div class="tab" data-tab="main">🍚 主食</div><div class="tab" data-tab="meat">🍖 肉食</div><div class="tab" data-tab="snack">🍮 小吃甜食</div><div class="tab" data-tab="local">🎁 地理名片</div></div><div class="card-grid" data-page="food"><div class="card" data-category="meat"><div class="card-image">🥘</div><div class="card-content"><div class="card-type">肉食</div><h3 class="card-title">客家酿豆腐</h3><p class="card-desc">客家菜之首，豆腐酿入肉馅，汤汁浓郁</p><div class="card-meta"><span>📍 河源全市</span><span class="card-rating">5.0 ★</span></div></div></div><div class="card" data-category="meat"><div class="card-image">🍗</div><div class="card-content"><div class="card-type">肉食</div><h3 class="card-title">东江盐焗鸡</h3><p class="card-desc">皮爽肉滑，咸香入骨，客家迁徙智慧结晶</p><div class="card-meta"><span>📍 河源全市</span><span class="card-rating">4.9 ★</span></div></div></div><div class="card" data-category="meat"><div class="card-image">🍲</div><div class="card-content"><div class="card-type">肉食</div><h3 class="card-title">紫金八刀汤</h3><p class="card-desc">猪八部位现煮，汤鲜肉嫩，早餐标配</p><div class="card-meta"><span>📍 紫金县</span><span class="card-rating">4.8 ★</span></div></div></div><div class="card" data-category="main"><div class="card-image">🍜</div><div class="card-content"><div class="card-type">主食</div><h3 class="card-title">河源米粉</h3><p class="card-desc">万绿湖水制作，口感爽滑，地理标志产品</p><div class="card-meta"><span>📍 源城区</span><span class="card-rating">4.7 ★</span></div></div></div><div class="card" data-category="snack"><div class="card-image">🥨</div><div class="card-content"><div class="card-type">小吃甜食</div><h3 class="card-title">客家牛耳公</h3><p class="card-desc">酥脆咸香的童年零食，过年必备</p><div class="card-meta"><span>📍 河源全市</span><span class="card-rating">4.6 ★</span></div></div></div><div class="card" data-category="local"><div class="card-image">🌿</div><div class="card-content"><div class="card-type">地理名片</div><h3 class="card-title">河源五指毛桃</h3><p class="card-desc">"广东人参"，煲汤香气浓郁，国家地理标志</p><div class="card-meta"><span>📍 和平县</span><span class="card-rating">4.9 ★</span></div></div></div></div></div>
+
+<!-- 非遗传承 -->
+<div id="heritage" class="page"><div class="page-header"><h2 class="page-title">活态的<span>客家</span>非遗</h2><p class="page-desc">千年技艺，薪火相传</p></div><div class="tabs" data-page="heritage"><div class="tab active" data-tab="all">全部非遗</div><div class="tab" data-tab="craft">✋ 传统技艺</div><div class="tab" data-tab="music">🎵 音乐戏曲</div><div class="tab" data-tab="festival">🎉 民俗节庆</div></div><div class="card-grid" data-page="heritage"><div class="card" data-category="craft"><div class="card-image">👨‍🍳</div><div class="card-content"><div class="card-type">传统技艺</div><h3 class="card-title">客家酿豆腐制作技艺</h3><p class="card-desc">省级非遗，承载乡愁智慧</p><div class="card-meta"><span>📍 河源全市</span><span class="card-rating">省级非遗</span></div></div></div><div class="card" data-category="music"><div class="card-image">🎭</div><div class="card-content"><div class="card-type">音乐戏曲</div><h3 class="card-title">紫金花朝戏</h3><p class="card-desc">广东独有的地方戏曲，国家级非遗</p><div class="card-meta"><span>📍 紫金县</span><span class="card-rating">国家级非遗</span></div></div></div><div class="card" data-category="festival"><div class="card-image">🏮</div><div class="card-content"><div class="card-type">民俗节庆</div><h3 class="card-title">忠信花灯节</h3><p class="card-desc">每年正月初九，赏灯庆灯，添丁发财</p><div class="card-meta"><span>📍 连平县</span><span class="card-rating">国家级非遗</span></div></div></div><div class="card" data-category="music"><div class="card-image">🎤</div><div class="card-content"><div class="card-type">音乐戏曲</div><h3 class="card-title">河源客家山歌</h3><p class="card-desc">省级非遗，客家人的文化基因</p><div class="card-meta"><span>📍 河源全市</span><span class="card-rating">省级非遗</span></div></div></div></div></div>
+
+<!-- 人文历史：改造为多容器切换 -->
+<div id="history" class="page"><div class="page-header"><h2 class="page-title">根在<span>河源</span></h2><p class="page-desc">两千年古邑，生生不息</p></div><div class="tabs" data-page="history"><div class="tab active" data-tab="history">📜 河源历史</div><div class="tab" data-tab="people">🌟 杰出人文</div><div class="tab" data-tab="custom">🎊 客家文化·民俗节庆</div></div>
+<div class="history-content-container" style="max-width:1000px; margin:0 auto; padding:20px;">
+  <div id="history-tab-history" class="history-tab-content active"><div class="timeline"><div class="timeline-item"><div class="timeline-period">先秦百越</div><h3 class="timeline-title">赵佗开基，龙川建县</h3><div class="timeline-content">公元前214年，赵佗任龙川县令，岭南最早建制县之一，促进民族融合。</div><div><span class="card-tag">岭南第一县</span></div></div><div class="timeline-item"><div class="timeline-period">唐宋文脉</div><h3 class="timeline-title">名人留迹，文风鼎盛</h3><div class="timeline-content">韩愈、苏轼等留下诗词文赋，成为岭南文化重要发源地。</div><div><span class="card-tag">客家文化形成</span></div></div><div class="timeline-item"><div class="timeline-period">近现代史</div><h3 class="timeline-title">东江纵队，革命老区</h3><div class="timeline-content">抗日战争时期东江纵队重要根据地，为胜利作出贡献。</div><div><span class="card-tag">红色文化</span></div></div><div class="timeline-item"><div class="timeline-period">当代发展</div><h3 class="timeline-title">万绿河源，生态崛起</h3><div class="timeline-content">1988年撤县设市，生态旅游和绿色产业蓬勃发展。</div><div><span class="card-tag">1988年建市</span></div></div></div></div>
+  <div id="history-tab-people" class="history-tab-content" style="display:none;"><div class="guide-grid"><div class="guide-card"><div class="guide-card-header"><div class="guide-card-icon">👑</div><h3>赵佗</h3></div><p>南越王，最早开发岭南的先驱，龙川首任县令，促进中原与岭南文化交融。</p></div><div class="guide-card"><div class="guide-card-header"><div class="guide-card-icon">📜</div><h3>王阳明</h3></div><p>明代心学大家，曾平定河源、和平一带匪患，设立和平县，影响深远。</p></div><div class="guide-card"><div class="guide-card-header"><div class="guide-card-icon">🎨</div><h3>萧殷</h3></div><p>著名作家、文艺评论家，河源龙川人，为中国当代文学作出重要贡献。</p></div><div class="guide-card"><div class="guide-card-header"><div class="guide-card-icon">⚙️</div><h3>刘尔崧</h3></div><p>早期工人运动领袖，河源紫金人，革命烈士，精神永存。</p></div></div></div>
+  <div id="history-tab-custom" class="history-tab-content" style="display:none;"><div class="guide-grid"><div class="guide-card"><div class="guide-card-header"><div class="guide-card-icon">🏮</div><h3>忠信花灯节</h3></div><p>每年正月，连平县忠信镇举办，赏灯、吊灯习俗，祈求添丁发财，国家级非遗。</p></div><div class="guide-card"><div class="guide-card-header"><div class="guide-card-icon">🥁</div><h3>客家舞火龙</h3></div><p>中秋时节舞火龙，驱邪纳福，场面壮观，传承数百年客家风情。</p></div><div class="guide-card"><div class="guide-card-header"><div class="guide-card-icon">🎶</div><h3>客家山歌节</h3></div><p>每年举办山歌擂台赛，以歌会友，展现客家人的热情与才华。</p></div><div class="guide-card"><div class="guide-card-header"><div class="guide-card-icon">🍚</div><h3>“补天穿”习俗</h3></div><p>正月二十纪念女娲，吃甜粄、祈丰收，独具客家民俗特色。</p></div></div></div>
+</div></div>
+
+<!-- 旅行指南 (已包含交通住宿服务) 保留原先结构，增加active类处理 -->
+<div id="guide" class="page"><div class="page-header"><h2 class="page-title">出发前<span>必读</span></h2><p class="page-desc">交通·住宿·城市服务</p></div><div class="tabs" data-page="guide"><div class="tab active" data-tab="traffic">🚌 交通出行</div><div class="tab" data-tab="hotel">🏨 住宿推荐</div><div class="tab" data-tab="service">🏛️ 城市服务</div></div><div class="guide-section"><div id="traffic-content" class="guide-content active"><div class="guide-grid"><div class="guide-card"><h3>🚗 自驾</h3><p>广州/深圳出发约2-2.5小时，长深高速直达，景区停车便利。</p></div><div class="guide-card"><h3>🚄 高铁</h3><p>河源东站，广州深圳1-1.5小时可达，12306提前购票。</p></div><div class="guide-card"><h3>🚌 大巴</h3><p>河源汽车总站，班次多，通往珠三角。</p></div><div class="guide-card"><h3>🚃 市内公交</h3><p>20余条线路，2元起步，微信小程序“河源公交”实时查询。</p></div></div></div><div id="hotel-content" class="guide-content"><div class="hotel-grid"><div class="hotel-card"><div class="hotel-card-header">🏨<div class="hotel-badge">高档酒店</div></div><div class="hotel-card-content"><h4>万绿湖美思威尔顿酒店</h4><p>临湖五星级，设施完善，¥580-1280/晚</p></div></div><div class="hotel-card"><div class="hotel-card-header">♨️<div class="hotel-badge">温泉度假</div></div><div class="hotel-card-content"><h4>巴伐利亚庄园福朋喜来登</h4><p>含私汤泡池，¥680-1580/晚</p></div></div><div class="hotel-card"><div class="hotel-card-header">🏡<div class="hotel-badge">客家民宿</div></div><div class="hotel-card-content"><h4>万绿湖客家民宿</h4><p>百年围屋改建，¥280-450/晚</p></div></div></div></div><div id="service-content" class="guide-content"><div class="service-grid"><div class="service-card"><h4>紧急电话</h4><p>🚑120  🚒119  👮110  📞12345</p></div><div class="service-card"><h4>医疗机构</h4><p>河源市人民医院：0762-3185888<br>河源市中医院：0762-3332666</p></div><div class="service-card"><h4>旅游咨询</h4><p>河源市文旅局：0762-3386000</p></div></div></div></div></div>
+
+<!-- 路线规划 -->
+<div id="planner" class="page"><div class="page-header"><h2 class="page-title">专属路线规划</h2><p class="page-desc">告诉我你的偏好，生成河源旅行路线</p></div><div class="planner-container"><div class="planner-form"><div class="form-group"><div class="form-label">📅 计划出行几天？</div><div class="form-options" id="daysGroup"><div class="form-option" data-value="1">1天（当日往返）</div><div class="form-option" data-value="2">2天（深度体验）</div><div class="form-option" data-value="3">3天（全面探索）</div></div></div><div class="form-group"><div class="form-label">❤️ 你对哪些方面感兴趣？（可多选）</div><div class="form-options" id="interestsGroup"><div class="form-option" data-value="nature">🏔️ 自然风光</div><div class="form-option" data-value="food">🍲 客家美食</div><div class="form-option" data-value="history">🏛️ 历史人文</div><div class="form-option" data-value="heritage">🎭 非遗体验</div><div class="form-option" data-value="hotspring">♨️ 温泉休闲</div><div class="form-option" data-value="village">🏡 古村落探访</div></div></div><div class="form-group"><div class="form-label">👥 你们是？</div><div class="form-options" id="companionGroup"><div class="form-option" data-value="family">👨‍👩‍👧‍👦 家庭亲子</div><div class="form-option" data-value="couple">💑 情侣出游</div><div class="form-option" data-value="friends">👫 朋友结伴</div><div class="form-option" data-value="solo">🧑 独自旅行</div></div></div><button class="form-submit" id="generateBtn" disabled>请先选择天数和至少一项兴趣</button><div id="planResult" class="result-area"></div></div></div></div>
+
+<!-- 天气参考 -->
+<div id="weather" class="page"><div class="page-header"><h2 class="page-title">出行天气参考</h2><p class="page-desc">河源实时天气参考（模拟）</p></div><div class="weather-container"><div class="weather-card"><div class="weather-header"><span>📍 广东省河源市</span><span>实时更新</span></div><div class="weather-main"><div class="weather-icon">☁️</div><div><div class="weather-temp">24°C</div><div>多云</div></div></div><div class="weather-stats"><div><div>82%</div><div>湿度</div></div><div><div>1 km/h</div><div>风速</div></div><div><div>0 mm</div><div>降水</div></div><div><div>16 km</div><div>能见度</div></div></div><div class="advice-item">👕 温度适中，建议穿长袖或薄外套</div><div class="advice-item">🚶 天气适合外出游览</div><div class="recommend-item">今日推荐：万绿湖风景区、恐龙博物馆</div><div class="weather-forecast" style="display:flex;gap:12px;margin-top:20px;"><div><div>明天</div><div>🌧️</div><div>21°/30°</div></div><div><div>后天</div><div>🌦️</div><div>21°/27°</div></div></div></div></div></div>
+
+<script>
+  // ---------- 页面切换 ----------
+  window.switchPage = function(pageName) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageName).classList.add('active');
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+      if(link.dataset.page === pageName) link.classList.add('active');
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // 标签筛选 (景点/美食/非遗)
+  function initTabFilters() {
+    document.querySelectorAll('.tabs').forEach(tabsContainer => {
+      const pageName = tabsContainer.dataset.page;
+      if (!pageName) return;
+      const cardsGrid = document.querySelector(`.card-grid[data-page="${pageName}"]`);
+      if (!cardsGrid) return;
+      const tabs = tabsContainer.querySelectorAll('.tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          const filterVal = tab.dataset.tab;
+          const allCards = cardsGrid.querySelectorAll('.card');
+          allCards.forEach(card => {
+            if(filterVal === 'all' || card.dataset.category === filterVal) {
+              card.style.display = '';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+      // 初始全部显示
+      cardsGrid.querySelectorAll('.card').forEach(c => c.style.display = '');
+    });
+  }
+
+  // 旅行指南选项卡切换
+  function initGuideTabs() {
+    const guideTabs = document.querySelector('.tabs[data-page="guide"]');
+    if(guideTabs) {
+      guideTabs.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          guideTabs.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          const targetTab = tab.dataset.tab;
+          document.querySelectorAll('.guide-content').forEach(cont => cont.classList.remove('active'));
+          document.getElementById(`${targetTab}-content`).classList.add('active');
+        });
+      });
+    }
+  }
+
+  // 人文历史选项卡切换 (三个独立容器)
+  function initHistoryTabs() {
+    const historyTabs = document.querySelector('.tabs[data-page="history"]');
+    if(!historyTabs) return;
+    historyTabs.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        historyTabs.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const tabVal = tab.dataset.tab;
+        document.querySelectorAll('.history-tab-content').forEach(cont => cont.style.display = 'none');
+        document.getElementById(`history-tab-${tabVal}`).style.display = 'block';
+      });
+    });
+    // 默认显示历史
+    document.getElementById('history-tab-history').style.display = 'block';
+    document.getElementById('history-tab-people').style.display = 'none';
+    document.getElementById('history-tab-custom').style.display = 'none';
+  }
+
+  // 路线规划交互
+  let selectedDays = null, selectedInterests = [], selectedCompanion = null;
+  function updatePlannerButton() {
+    const btn = document.getElementById('generateBtn');
+    if(selectedDays && selectedInterests.length > 0) {
+      btn.disabled = false; btn.classList.add('active'); btn.textContent = '生成我的专属路线';
+    } else {
+      btn.disabled = true; btn.classList.remove('active'); btn.textContent = '请先选择天数和至少一项兴趣';
+    }
+  }
+  function initPlannerOptions() {
+    const daysOptions = document.querySelectorAll('#daysGroup .form-option');
+    const interestOptions = document.querySelectorAll('#interestsGroup .form-option');
+    const companionOptions = document.querySelectorAll('#companionGroup .form-option');
+    daysOptions.forEach(opt => {
+      opt.addEventListener('click', () => {
+        daysOptions.forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        selectedDays = parseInt(opt.dataset.value);
+        updatePlannerButton();
+      });
+    });
+    interestOptions.forEach(opt => {
+      opt.addEventListener('click', () => {
+        const val = opt.dataset.value;
+        if(opt.classList.contains('selected')) {
+          opt.classList.remove('selected');
+          selectedInterests = selectedInterests.filter(v => v !== val);
+        } else {
+          opt.classList.add('selected');
+          selectedInterests.push(val);
+        }
+        updatePlannerButton();
+      });
+    });
+    companionOptions.forEach(opt => {
+      opt.addEventListener('click', () => {
+        companionOptions.forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        selectedCompanion = opt.dataset.value;
+      });
+    });
+  }
+  function generatePlan() {
+    if(!selectedDays || selectedInterests.length === 0) return;
+    let planText = `✨ 为您定制${selectedDays}日河源行程：<br><br>`;
+    if(selectedDays === 1) {
+      planText += `【一日精华】上午游览万绿湖，乘船登岛；中午品尝客家酿豆腐、盐焗鸡；下午参观恐龙博物馆或桂山森林公园，傍晚返程。`;
+      if(selectedInterests.includes('hotspring')) planText += `建议增加巴伐利亚温泉夜间体验（需延长时间）。`;
+    } else if(selectedDays === 2) {
+      planText += `【两日深度】Day1: 万绿湖+桂山森林公园，夜宿万绿湖畔酒店；Day2: 龙川霍山或苏家围古村，品尝紫金八刀汤，下午忠信花灯体验。`;
+      if(selectedInterests.includes('food')) planText += `安排客家美食寻味路线，打卡特色小吃。`;
+    } else {
+      planText += `【三日全景】Day1: 万绿湖+水月湾+龙凤岛；Day2: 霍山徒步+佗城赵佗故址；Day3: 巴伐利亚温泉+福源寺+客家非遗体验。根据你的兴趣融合自然、美食与历史文化。`;
+    }
+    planText += `<br><br>💡 友情提示：提前预定酒店，山区早晚温差带外套，祝旅途愉快！`;
+    const resultDiv = document.getElementById('planResult');
+    resultDiv.innerHTML = `<div style="background:#e8f0e9; padding:20px; border-radius:20px;">${planText}</div>`;
+    resultDiv.classList.add('show');
+  }
+
+  // 卡片点击简单提醒
+  function cardAlert() {
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', (e) => { if(!e.target.closest('.card-tag') && !e.target.closest('.card-meta')) alert('✨ 更多详情即将上线，可联系河源文旅局咨询。'); });
+    });
+  }
+
+  // 初始化所有
+  document.addEventListener('DOMContentLoaded', () => {
+    // 导航事件
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => { e.preventDefault(); switchPage(link.dataset.page); });
+    });
+    initTabFilters();
+    initGuideTabs();
+    initHistoryTabs();
+    initPlannerOptions();
+    cardAlert();
+    // 生成路线按钮
+    document.getElementById('generateBtn')?.addEventListener('click', generatePlan);
+    // 确保首页按钮等完全
+    document.querySelector('.btn')?.addEventListener('click', () => switchPage('scenery'));
+    // travel guide 初始显示交通内容
+    document.querySelectorAll('.guide-content').forEach(c => c.classList.remove('active'));
+    document.getElementById('traffic-content')?.classList.add('active');
+    // 天气里模拟随机更新友好
+  });
+</script>
+</body>
+</html>
